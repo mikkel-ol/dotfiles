@@ -30,3 +30,6 @@ export CHROME_BIN='/mnt/c/Program Files/Google/Chrome/Application/chrome.exe'
 
 # Load Angular CLI autocompletion.
 source <(ng completion script)
+
+# Seges Kendo license
+source ~/.kendo
