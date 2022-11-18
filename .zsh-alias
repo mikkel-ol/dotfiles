@@ -83,6 +83,13 @@ function gchgb() {
   fi
   git stash pop
 }
+
+greset() {
+  git switch main --discard-changes
+  git reset --hard
+  git clean -fd
+}
+
 # Local:
 # https://stackoverflow.com/questions/21151178/shell-script-to-check-if-specified-git-branch-exists
 # test if the branch is in the local repository.
@@ -105,47 +112,12 @@ function dotrun() {
 
 alias db='dotnet build'
 
-# Python version select
-alias python=/usr/local/bin/python3.7
-
 # IDF
 alias get_idf='. $HOME/esp/esp-idf/export.sh'
 
 # Mouse acceleration
 alias macc_off='defaults write .GlobalPreferences com.apple.mouse.scaling -1'
 alias macc_on='defaults write .GlobalPreferences com.apple.mouse.scaling 1'
-
-# Tildeling.dk
-function tdk() {
-
-  local repoPath="/Users/mikkel/git/itminds/tildeling.dk/"
-  local api="Tildeling.API"
-  local frontend="tildeling-frontend"
-
-  case "$1" in
-    "--publish")
-
-      local env="prod"
-
-      case "$2" in
-        "dev")
-          env="dev"
-          ;;
-        *)
-      esac
-
-      local apiPublishPath="${repoPath}${api}/publish"
-
-      rm -rf $apiPublishPath && dotnet publish "${repoPath}${api}" -c Release -o $apiPublishPath &&
-      dotnet publish "${repoPath}/Tildeling.Hangfire" -c Release -o "${apiPublishPath}/app_data/Jobs/Continuous/Tildeling.Hangfire" &&
-      rm "${apiPublishPath}/appsettings.Development.json" "${apiPublishPath}/appsettings.Local.json" &&
-      npm run --prefix ${repoPath}${frontend} build:${env}
-      ;;
-
-    *)
-      echo "Option not recognised. Try --help"
-  esac
-}
 
 # Random
 function random() {
@@ -154,23 +126,9 @@ function random() {
   head /dev/urandom | LC_ALL=C tr -dc ${character_set} | fold -w ${character_count} | head -1
 }
 
-# Structurizr
-function structurizr() {
-  /usr/local/bin/structurizr/structurizr.sh $1 -id 58478 -key e7b7d92f-b780-466a-bc2c-6163534c38b6 -secret 11141ab0-fe7e-43c4-a502-f40f7ea89816 -workspace $2
-}
-
-# I7BAC
-function bac() {
-  make clean && make all && open out.pdf && ls **/*.md | entr make all
-}
-
 # Python
 alias pip=pip3
 alias python=python3
-
-# Contiker
-export CNG_PATH=/Users/mikkel/git/wsn-mini-project
-alias contiker="docker run --privileged --sysctl net.ipv6.conf.all.disable_ipv6=0 --mount type=bind,source=$CNG_PATH,destination=/home/user/contiki-ng -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/bus/usb:/dev/bus/usb -ti contiker/contiki-ng"
 
 # Weather
 alias weather='curl wttr.in/Aarhus'
@@ -191,3 +149,6 @@ alias repl="NODE_PATH=$(npm root --location=global) node ~/git/dotfiles/.repl.js
 function rxdoc() {
   open https://rxjs.dev/api/operators/"$1"
 }
+
+# Git
+
