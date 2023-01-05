@@ -21,7 +21,7 @@ export NVM_DIR="$HOME/.nvm"
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 #[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-source ./.zsh-alias
+source "$HOME/git/dotfiles/.zsh-alias"
 
 #eval "$(/bin/brew shellenv)"
 #eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
@@ -32,10 +32,10 @@ export CHROME_BIN='/mnt/c/Program Files/Google/Chrome/Application/chrome.exe'
 source <(ng completion script)
 
 # Seges Kendo license
-source ~/.kendo
+source "$HOME/.kendo"
 
 # GitHub alias
-source ./.github
+source "$HOME/git/dotfiles/.github"
 
 # Angular Playgrounds
-source ./.angular
+source "$HOME/git/dotfiles/.angular"

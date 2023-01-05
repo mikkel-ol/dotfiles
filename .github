@@ -3,8 +3,8 @@ createGitHubRepo(){
 		echo
 		if [[ $REPLY =~ ^[Yy]$ ]]; then
 			local sourcePath=`pwd`
-			rsync -r --exclude=.git --exclude=node_modules . ~/Dev/playground/shared/$1
-			cd ~/Dev/playground/shared/$1
+			rsync -r --exclude=.git --exclude=node_modules . ~/dev/playground/shared/$1
+			cd ~/dev/playground/shared/$1
 
 			git init
 			git add .
@@ -14,7 +14,7 @@ createGitHubRepo(){
 			read -q "REPLY?Do you also want to create a StackBlitz? "
 			echo
 			if [[ $REPLY =~ ^[Yy]$ ]]; then
-				open "https://stackblitz.com/github/YOUR-GITHUB-USERNAME/$1"
+				explorer.exe "https://stackblitz.com/github/mikkel-ol/$1"
 			else
 				gh repo view -w
 			fi
