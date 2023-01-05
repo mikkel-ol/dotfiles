@@ -1,3 +1,7 @@
+# Vim
+alias n="nvim"
+alias v="nvim"
+
 # Zsh
 alias szsh="source ~/.zshrc"
 alias vzsh="vim ~/.zshrc"
@@ -149,6 +153,4 @@ alias repl="NODE_PATH=$(npm root --location=global) node ~/git/dotfiles/.repl.js
 function rxdoc() {
   open https://rxjs.dev/api/operators/"$1"
 }
-
-# Git
 
