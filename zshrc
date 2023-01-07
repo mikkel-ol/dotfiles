@@ -19,7 +19,7 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOME/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # alias
-for f (./.config/zsh/alias/*.zsh) . $f
+for f ($HOME/.config/zsh/alias/*.zsh) . $f
 
 # configs
-for f (./.config/zsh/config/*.zsh) . $f
+for f ($HOME/.config/zsh/config/*.zsh) . $f
