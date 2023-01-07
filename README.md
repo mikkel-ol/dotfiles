@@ -7,7 +7,7 @@
 - zsh
 - rcm
 
-Alternatively you can run the script `bootstrap.sh`. **Note** this installs all my default tools, so make sure you want them all!
+Alternatively you can run the script `scripts/bootstrap`. **Note** this installs all my default tools, so make sure you want them all!
 
 # Install
 
@@ -17,7 +17,7 @@ Clone repository into home folder:
 git clone git@github.com:mikkel-ol/dotfiles.git ~/dotfiles
 ```
 
-Install the dotfiles:
+Install the dotfiles with `rcm`:
 
 ```
 env RCRC=$HOME/dotfiles/rcrc rcup

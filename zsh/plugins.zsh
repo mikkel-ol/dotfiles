@@ -1,4 +1,0 @@
-plugins=(
-    git
-    zsh-nvm
-)
