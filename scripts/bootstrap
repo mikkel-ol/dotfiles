@@ -1,6 +1,6 @@
 #!/bin/bash
 
-local programs='zsh git rcm'
+programs='zsh git rcm'
 
 # macOS
 if command -v brew &>/dev/null; then
@@ -27,4 +27,4 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh/zs
 
 # fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
-$HOME/.fzf/install --all
+$HOME/.fzf/install --key-bindings --completion --no-update-rc
