@@ -1,3 +1,4 @@
 EXCLUDES="*.md LICENSE"
-DOTFILES_DIRS="$HOME/dotfiles-local $HOME/dotfiles"
+DOTFILES_DIRS="$HOME/dotfiles-local $HOME/git/dotfiles"
 COPY_ALWAYS="git_template/HEAD"
+UNDOTTED=".config"

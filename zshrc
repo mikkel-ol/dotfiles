@@ -17,3 +17,9 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # zsh syntax highlighting
 source $HOME/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# alias
+for f (./.config/zsh/alias/*.zsh) . $f
+
+# configs
+for f (./.config/zsh/config/*.zsh) . $f
