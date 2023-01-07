@@ -1,7 +1,20 @@
 #!/bin/bash
 
-sudo apt update -y
-sudo apt install zsh wget git -y
+local programs='zsh git'
+
+# macOS
+if command -v brew &>/dev/null; then
+    brew install $programs
+
+# linux (with apt)
+elif command -v apt &>/dev/null; then
+    sudo apt update -y
+    sudo apt install $programs wget -y
+
+# something else (probably windows)
+else
+    echo "No package manager recognized. Install these things yourself: $programs"
+fi
 
 # oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
