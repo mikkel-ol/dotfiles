@@ -6,7 +6,10 @@ source $ZSH/oh-my-zsh.sh
 
 plugins=(
     git
-    zsh-nvm
+    macos
+    docker
+    dotnet
+    kubectl
 )
 
 # zsh auto suggestions
@@ -18,8 +21,10 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # zsh syntax highlighting
 source $HOME/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# configs
+for f ($HOME/.config/zsh/config/*.zsh) . $f
+
 # alias
 for f ($HOME/.config/zsh/alias/*.zsh) . $f
 
-# configs
-for f ($HOME/.config/zsh/config/*.zsh) . $f
+source $ZSH/oh-my-zsh.sh

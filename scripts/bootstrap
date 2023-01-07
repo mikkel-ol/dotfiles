@@ -28,3 +28,9 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh/zs
 # fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
 $HOME/.fzf/install --key-bindings --completion --no-update-rc
+
+# zsh nvm lazy load
+git clone https://github.com/lukechilds/zsh-nvm $ZSH/custom/plugins/zsh-nvm
+
+# nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | PROFILE=/dev/null bash -s
