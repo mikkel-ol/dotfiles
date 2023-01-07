@@ -1,10 +1,14 @@
-const repl = require('repl');
+/**
+ * REPL config for an RxJS environment
+ */
+
+const repl = require("repl");
 
 const r = repl.start({
-  ignoreUndefined: true
+  ignoreUndefined: true,
 });
 
-r.context.rxjs = require('rxjs');
+r.context.rxjs = require("rxjs");
 
 // operators
 r.context.ajax = r.context.rxjs.ajax;
