@@ -1,6 +1,6 @@
 #!/bin/bash
 
-programs='zsh git rcm neovim'
+programs='zsh git rcm neovim ripgrep'
 
 # macOS
 if command -v brew &>/dev/null; then
@@ -12,6 +12,7 @@ elif command -v apt &>/dev/null; then
     sudo apt install $programs wget -y
 
 # something else (probably windows)
+# TODO: look into choco
 else
     echo "No package manager recognized. Install these things yourself: $programs"
 fi
