@@ -2,8 +2,6 @@
 DEFAULT_USER=$(whoami)
 ZSH_THEME="agnoster"
 
-source $ZSH/oh-my-zsh.sh
-
 plugins=(
     git
     macos
