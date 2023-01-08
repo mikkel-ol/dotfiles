@@ -4,10 +4,11 @@
 
 # Requirements
 
-- zsh
-- rcm
+- [zsh](https://www.zsh.org/)
+- [rcm](https://github.com/thoughtbot/rcm)
 
-Alternatively you can run the script `scripts/bootstrap`. **Note** this installs all my default tools, so make sure you want them all!
+Alternatively you can run the script `scripts/bootstrap` <br/>
+_Note: this installs all my default tools, so make sure you want them all!_
 
 # Install
 
