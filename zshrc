@@ -27,3 +27,5 @@ for f ($HOME/.config/zsh/config/*.zsh) . $f
 for f ($HOME/.config/zsh/alias/*.zsh) . $f
 
 source $ZSH/oh-my-zsh.sh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
