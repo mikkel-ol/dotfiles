@@ -2,7 +2,7 @@
 
 ![wow dotfiles](docs/img/dotfiles.meme.png)
 
-# Requirements
+# Prerequisites
 
 - [zsh](https://www.zsh.org/)
 - [rcm](https://github.com/thoughtbot/rcm)
