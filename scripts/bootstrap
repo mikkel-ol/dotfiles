@@ -1,6 +1,6 @@
 #!/bin/bash
 
-programs='zsh git rcm neovim ripgrep'
+programs='zsh git rcm neovim ripgrep hub'
 
 # macOS
 if command -v brew &>/dev/null; then
