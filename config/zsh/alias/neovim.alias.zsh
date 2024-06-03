@@ -1,2 +1,2 @@
-alias n="nvim"
-alias v="nvim"
+alias n="nvim ."
+alias v="nvim ."
