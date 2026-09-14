@@ -1,0 +1,90 @@
+{
+  "setup-matt-pocock-skills": {
+    "source": "mattpocock/skills",
+    "skillPath": "skills/engineering/setup-matt-pocock-skills/SKILL.md"
+  },
+  "grill-me": {
+    "source": "mattpocock/skills",
+    "skillPath": "skills/productivity/grill-me/SKILL.md"
+  },
+  "grill-with-docs": {
+    "source": "mattpocock/skills",
+    "skillPath": "skills/engineering/grill-with-docs/SKILL.md"
+  },
+  "improve-codebase-architecture": {
+    "source": "mattpocock/skills",
+    "skillPath": "skills/engineering/improve-codebase-architecture/SKILL.md"
+  },
+  "find-skills": {
+    "source": "vercel-labs/skills",
+    "skillPath": "skills/find-skills/SKILL.md"
+  },
+  "ask-matt": {
+    "source": "mattpocock/skills",
+    "skillPath": "skills/engineering/ask-matt/SKILL.md"
+  },
+  "code-review": {
+    "source": "mattpocock/skills",
+    "skillPath": "skills/engineering/code-review/SKILL.md"
+  },
+  "codebase-design": {
+    "source": "mattpocock/skills",
+    "skillPath": "skills/engineering/codebase-design/SKILL.md"
+  },
+  "diagnosing-bugs": {
+    "source": "mattpocock/skills",
+    "skillPath": "skills/engineering/diagnosing-bugs/SKILL.md"
+  },
+  "domain-modeling": {
+    "source": "mattpocock/skills",
+    "skillPath": "skills/engineering/domain-modeling/SKILL.md"
+  },
+  "grilling": {
+    "source": "mattpocock/skills",
+    "skillPath": "skills/productivity/grilling/SKILL.md"
+  },
+  "handoff": {
+    "source": "mattpocock/skills",
+    "skillPath": "skills/productivity/handoff/SKILL.md"
+  },
+  "implement": {
+    "source": "mattpocock/skills",
+    "skillPath": "skills/engineering/implement/SKILL.md"
+  },
+  "prototype": {
+    "source": "mattpocock/skills",
+    "skillPath": "skills/engineering/prototype/SKILL.md"
+  },
+  "tdd": {
+    "source": "mattpocock/skills",
+    "skillPath": "skills/engineering/tdd/SKILL.md"
+  },
+  "teach": {
+    "source": "mattpocock/skills",
+    "skillPath": "skills/productivity/teach/SKILL.md"
+  },
+  "triage": {
+    "source": "mattpocock/skills",
+    "skillPath": "skills/engineering/triage/SKILL.md"
+  },
+  "research": {
+    "source": "mattpocock/skills",
+    "skillPath": "skills/engineering/research/SKILL.md"
+  },
+  "resolving-merge-conflicts": {
+    "source": "mattpocock/skills",
+    "skillPath": "skills/engineering/resolving-merge-conflicts/SKILL.md"
+  },
+  "to-spec": {
+    "source": "mattpocock/skills",
+    "skillPath": "skills/engineering/to-spec/SKILL.md"
+  },
+  "to-tickets": {
+    "source": "mattpocock/skills",
+    "skillPath": "skills/engineering/to-tickets/SKILL.md"
+  },
+  "wayfinder": {
+    "source": "mattpocock/skills",
+    "skillPath": "skills/engineering/wayfinder/SKILL.md"
+  }
+}

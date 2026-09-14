@@ -1,0 +1,5 @@
+# Copy only the relevant non-secret routing to ~/.npmrc.
+registry=https://registry.npmjs.org/
+@mikkel-ol:registry=https://npm.pkg.github.com/
+# Authenticate interactively with npm login --registry=... .
+# Work registry URLs and actual credentials belong only in the local file.

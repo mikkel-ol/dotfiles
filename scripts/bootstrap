@@ -1,40 +1,115 @@
-#!/bin/bash
-
-programs='zsh git rcm neovim ripgrep hub'
-
-# macOS
-if command -v brew &>/dev/null; then
-    brew install $programs
-
-# linux (with apt)
-elif command -v apt &>/dev/null; then
-    sudo apt update -y
-    sudo apt install $programs wget -y
-
-# something else (probably windows)
-# TODO: look into choco
-else
-    echo "No package manager recognized. Install these things yourself: $programs"
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+mode=plan
+config_only=false
+profiles=${DOTFILES_PROFILES:-desktop,ai}
+if [[ -f "$HOME/.config/dotfiles/profiles" && -z ${DOTFILES_PROFILES:-} ]]; then
+  profiles=$(cat "$HOME/.config/dotfiles/profiles")
 fi
+usage() {
+  cat <<'EOF'
+Usage: scripts/bootstrap [--plan | --apply] [--profile GROUPS] [--config-only]
 
-# packer
-git clone --depth 1 https://github.com/wbthomason/packer.nvim $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim
+Default: show the plan without changing files or installing anything.
+--apply         Install packages, back up/apply configs, install runtimes/extensions.
+--profile LIST  Comma-separated: core,desktop,ai,work,creative,extras; or full.
+                Default desktop,ai; core is always included. Saved on success.
+--config-only   Files only; requires chezmoi and Python 3. No package/runtime installs.
+                This is also the supported Linux path.
 
-# oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-# zsh auto-suggestions
-git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.zsh/zsh-autosuggestions
-
-# zsh syntax highlighting
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh/zsh-syntax-highlighting
-
-# fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
-$HOME/.fzf/install --key-bindings --completion --no-update-rc
-
-# zsh nvm lazy load
-git clone https://github.com/lukechilds/zsh-nvm $ZSH/custom/plugins/zsh-nvm
-
-# nvm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | PROFILE=/dev/null bash -s
+Examples:
+  scripts/bootstrap --profile full
+  scripts/bootstrap --apply --profile full
+  scripts/bootstrap --apply --config-only
+EOF
+}
+while (($#)); do
+  case "$1" in
+    --plan) mode=plan ;;
+    --apply) mode=apply ;;
+    --config-only) config_only=true ;;
+    --profile)
+      [[ $# -ge 2 && -n $2 ]] || {
+        echo '--profile requires a value' >&2
+        exit 2
+      }
+      profiles=$2
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "Unknown argument: $1" >&2
+      usage >&2
+      exit 2
+      ;;
+  esac
+  shift
+done
+export DOTFILES_PROFILES=$profiles
+"$ROOT/scripts/packages" validate
+if [[ $mode == plan ]]; then
+  printf 'Source: %s\nProfiles: %s\nConfig only: %s\n' "$ROOT" "$profiles" "$config_only"
+  if [[ $config_only == false ]]; then "$ROOT/scripts/packages" list; fi
+  cat <<'EOF'
+Apply prompts once for Git identity, backs up managed destinations, then applies
+home/ with chezmoi. Existing runtime managers and shell preferences are retained.
+macOS defaults are a separate opt-in: scripts/macos.py --apply.
+See docs/inventory.md for private configuration and manual installation steps.
+Nothing has been installed or applied. Add --apply to run this plan.
+EOF
+  exit 0
+fi
+if [[ $(uname -s) != Darwin && $config_only == false ]]; then
+  echo 'Linux: install prerequisites with your distro, then use --apply --config-only. See README.' >&2
+  exit 1
+fi
+if [[ $config_only == false ]]; then
+  if ! xcode-select -p >/dev/null 2>&1; then
+    echo 'Run xcode-select --install, finish installation, then rerun bootstrap.' >&2
+    exit 1
+  fi
+  for brew_bin in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+    if [[ -x $brew_bin ]]; then
+      eval "$("$brew_bin" shellenv)"
+      break
+    fi
+  done
+  if ! command -v brew >/dev/null 2>&1; then
+    installer=$(mktemp)
+    trap 'rm -f "$installer"' EXIT
+    curl --proto '=https' --tlsv1.2 -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh -o "$installer"
+    /bin/bash "$installer"
+    for brew_bin in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+      if [[ -x $brew_bin ]]; then
+        eval "$("$brew_bin" shellenv)"
+        break
+      fi
+    done
+  fi
+  "$ROOT/scripts/packages" install
+fi
+for tool in chezmoi python3; do
+  command -v "$tool" >/dev/null || {
+    echo "Missing prerequisite: $tool" >&2
+    exit 1
+  }
+done
+# Protect an existing chezmoi config before initialization changes its sourceDir.
+python3 "$ROOT/scripts/backup.py" config --source "$ROOT"
+if [[ $config_only == false ]]; then python3 "$ROOT/scripts/shell-plugins.py" --apply; fi
+chezmoi --source "$ROOT" init --recurse-submodules=false
+python3 "$ROOT/scripts/backup.py" snapshot --source "$ROOT"
+chezmoi --source "$ROOT" apply
+if [[ $config_only == false ]]; then
+  python3 "$ROOT/scripts/runtimes.py" --apply
+  case ",$profiles," in
+    *,desktop,* | *,full,*) "$ROOT/scripts/extensions" ;;
+  esac
+fi
+mkdir -p "$HOME/.config/dotfiles"
+printf '%s\n' "$profiles" >"$HOME/.config/dotfiles/profiles"
+printf '\nConfiguration applied. Open a new terminal. Run scripts/doctor for remaining setup.\n'

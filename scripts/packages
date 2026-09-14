@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+action=${1:-check}
+profiles=${DOTFILES_PROFILES:-}
+if [[ -z $profiles && -f "$HOME/.config/dotfiles/profiles" ]]; then profiles=$(cat "$HOME/.config/dotfiles/profiles"); fi
+profiles=${profiles:-desktop,ai}
+[[ $profiles != ,* && $profiles != *, && $profiles != *,,* ]] || {
+  echo 'Empty profile name' >&2
+  exit 2
+}
+IFS=',' read -r -a groups <<<"$profiles"
+for group in "${groups[@]}"; do
+  case "$group" in core | desktop | ai | work | creative | extras | full) ;; *)
+    echo "Unknown profile: $group" >&2
+    exit 2
+    ;;
+  esac
+done
+export DOTFILES_PROFILES=$profiles
+export HOMEBREW_NO_INSTALL_CLEANUP=1
+case "$action" in
+  validate) exit 0 ;;
+  list)
+    cat "$ROOT/packages/Brewfile.core"
+    [[ ",$profiles," != *,full,* ]] || groups=(desktop ai work creative extras)
+    for group in "${groups[@]}"; do
+      [[ $group == core ]] || cat "$ROOT/packages/Brewfile.$group"
+    done
+    ;;
+  install | check | upgrade)
+    [[ $(uname -s) == Darwin ]] || {
+      echo 'Package provisioning is macOS-only. See README for Linux.' >&2
+      exit 1
+    }
+    manifest=$(mktemp)
+    trap 'rm -f "$manifest"' EXIT
+    "$ROOT/scripts/packages" list >"$manifest"
+    case "$action" in
+      install)
+        brew bundle install --file="$manifest" --no-upgrade
+        ;;
+      check) brew bundle check --file="$manifest" --no-upgrade ;;
+      upgrade) brew bundle install --file="$manifest" ;;
+    esac
+    ;;
+  *)
+    echo 'Usage: scripts/packages [list|check|install|upgrade|validate]' >&2
+    exit 2
+    ;;
+esac

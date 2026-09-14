@@ -1,0 +1,12 @@
+# Specialized tools detected on the original machine.
+tap "homebrew-zathura/zathura"
+brew "homebrew-zathura/zathura/zathura"
+brew "automake"
+brew "libffi"
+brew "pkgconf"
+brew "qemu"
+brew "telnet"
+brew "x3270"
+cask "moonlight"
+cask "rectangle" # Alternative to AeroSpace; do not enable both at login.
+cask "logi-options+"

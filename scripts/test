@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+cd "$ROOT"
+for tool in chezmoi python3 zsh shellcheck shfmt gitleaks; do
+  command -v "$tool" >/dev/null || {
+    echo "Missing test dependency: $tool" >&2
+    exit 1
+  }
+done
+shellcheck scripts/bootstrap scripts/packages scripts/extensions scripts/doctor scripts/test
+shfmt -d -i 2 -ci scripts/bootstrap scripts/packages scripts/extensions scripts/doctor scripts/test
+for source in home/dot_zshenv home/dot_zprofile home/dot_zshrc home/dot_config/zsh/{alias,config,plugins}/*.zsh; do
+  zsh -n "$source"
+done
+python3 -m unittest discover -s tests -v
+# Scan the full working tree, including untracked files. Suppress matched values.
+gitleaks dir --redact --no-banner .

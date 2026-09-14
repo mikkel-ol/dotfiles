@@ -1,0 +1,10 @@
+cask "codex"
+# codex-app is deprecated as discontinued in Homebrew; install through OpenAI.
+cask "chatgpt"
+cask "claude"
+cask "claude-code"
+cask "copilot-cli"
+cask "github-copilot-app"
+cask "opencode-desktop"
+brew "opencode"
+brew "llm"

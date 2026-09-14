@@ -1,0 +1,1 @@
+alias cdz='z $1'

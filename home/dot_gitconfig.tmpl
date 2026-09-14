@@ -1,0 +1,13 @@
+[user]
+	email = {{ .defaultEmail | quote }}
+	name = {{ .name | quote }}
+[pull]
+	rebase = true
+[includeIf "gitdir:~/dev/mikkel-ol/"]
+	path = ~/.gitconfig-personal
+[credential "https://github.com"]
+	helper =
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !gh auth git-credential

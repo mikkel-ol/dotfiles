@@ -1,0 +1,4 @@
+# Initial defaults only: preserve app-managed plugins, projects, and settings.
+#:schema https://developers.openai.com/codex/config-schema.json
+model = "gpt-6-astra"
+model_reasoning_effort = "high"

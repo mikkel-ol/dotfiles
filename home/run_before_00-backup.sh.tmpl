@@ -1,0 +1,3 @@
+#!/bin/sh
+# Every apply, including plain `chezmoi apply`, protects existing managed files.
+exec python3 {{ joinPath .chezmoi.workingTree "scripts/backup.py" | quote }} snapshot --source {{ .chezmoi.workingTree | quote }} --home {{ .chezmoi.destDir | quote }}

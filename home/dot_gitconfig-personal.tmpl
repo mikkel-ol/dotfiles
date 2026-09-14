@@ -1,0 +1,6 @@
+; Identity for personal projects. Applied automatically to repos under
+; ~/dev/mikkel-ol/ via the includeIf rule in ~/.gitconfig, so personal work
+; is never committed with the work address.
+[user]
+	name = {{ .name | quote }}
+	email = {{ .email | quote }}

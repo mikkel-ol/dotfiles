@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -uo pipefail
+ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+failed=0
+for tool in chezmoi git gh hub nvim zsh fnm ruby-install fzf rg fd bat eza jq; do
+  if command -v "$tool" >/dev/null; then printf 'OK      %s\n' "$tool"; else
+    printf 'MISSING %s\n' "$tool"
+    failed=1
+  fi
+done
+if command -v chezmoi >/dev/null; then chezmoi --source "$ROOT" verify --exclude=scripts || failed=1; fi
+if [[ $(uname -s) == Darwin ]] && command -v brew >/dev/null; then "$ROOT/scripts/packages" check || failed=1; fi
+printf '\nManual checks: gh auth status; SSH keys; registry login; app permissions.\n'
+printf 'Open Neovim and run :checkhealth. See docs/inventory.md for the full handoff.\n'
+exit "$failed"

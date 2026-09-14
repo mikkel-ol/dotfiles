@@ -1,0 +1,7 @@
+brew "imagemagick"
+brew "jpegoptim"
+brew "oxipng"
+brew "pngquant"
+cask "imageoptim"
+cask "inkscape"
+cask "mactex" # several GB; only creative/full, never the default profile

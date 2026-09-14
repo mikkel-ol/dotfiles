@@ -1,0 +1,27 @@
+[
+  {
+    "path": ".oh-my-zsh",
+    "url": "https://github.com/ohmyzsh/ohmyzsh.git",
+    "commit": "829b8fdea441208c08c9d231079f46215344cc46"
+  },
+  {
+    "path": ".oh-my-zsh/custom/plugins/git-open",
+    "url": "https://github.com/paulirish/git-open.git",
+    "commit": "a223125abc3cbf72ceaf050ed7af944a1722f5ef"
+  },
+  {
+    "path": ".oh-my-zsh/custom/plugins/zsh-vi-mode",
+    "url": "https://github.com/jeffreytse/zsh-vi-mode.git",
+    "commit": "f82c4c8f4b2bdd9c914653d8f21fbb32e7f2ea6c"
+  },
+  {
+    "path": ".zsh/zsh-autosuggestions",
+    "url": "https://github.com/zsh-users/zsh-autosuggestions.git",
+    "commit": "0e810e5afa27acbd074398eefbe28d13005dbc15"
+  },
+  {
+    "path": "zsh-syntax-highlighting",
+    "url": "https://github.com/zsh-users/zsh-syntax-highlighting.git",
+    "commit": "5eb677bb0fa9a3e60f0eff031dc13926e093df92"
+  }
+]

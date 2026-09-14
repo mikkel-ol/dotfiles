@@ -1,0 +1,15 @@
+{
+  "NSGlobalDomain": {
+    "AppleShowAllExtensions": true,
+    "ApplePressAndHoldEnabled": false,
+    "KeyRepeat": 2,
+    "InitialKeyRepeat": 15
+  },
+  "com.apple.dock": {
+    "tilesize": 64,
+    "show-recents": false
+  },
+  "com.apple.finder": {
+    "FXPreferredViewStyle": "Nlsv"
+  }
+}

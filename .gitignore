@@ -1,1 +1,16 @@
-
+## Local data and generated artifacts never belong in the source tree.
+.DS_Store
+.env
+.env.*
+!.env.example
+*.local.*
+local/
+backups/
+.venv/
+__pycache__/
+*.pyc
+.test-output/
+*.age
+*.pem
+*.key
+result

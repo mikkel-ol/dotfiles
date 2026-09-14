@@ -1,0 +1,65 @@
+# oh-my-zsh
+DEFAULT_USER=$(whoami)
+ZSH_THEME="laksnoster"
+DISABLE_AUTO_UPDATE="true"
+
+plugins=(
+  git
+  git-open
+  macos
+  zsh-vi-mode
+  direnv
+)
+
+# Load the original plugins from their original installation locations.
+[[ -r "$HOME/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "$HOME/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+[[ -r "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+[[ -r "$ZSH/oh-my-zsh.sh" ]] && source "$ZSH/oh-my-zsh.sh"
+
+# alias
+for f ("$HOME"/.config/zsh/alias/*.zsh(N)) . "$f"
+
+# configs
+for f ("$HOME"/.config/zsh/config/*.zsh(N)) . "$f"
+
+# plugins
+for f ("$HOME"/.config/zsh/plugins/*.zsh(N)) . "$f"
+
+# TODO: Keybinding not working
+# fzf
+(( $+commands[fzf] )) && source <(fzf --zsh)
+
+[[ -r "$HOMEBREW_PREFIX/etc/profile.d/z.sh" ]] && . "$HOMEBREW_PREFIX/etc/profile.d/z.sh"
+
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# pnpm
+if [[ $OSTYPE == darwin* ]]; then
+  export PNPM_HOME="$HOME/Library/pnpm"
+else
+  export PNPM_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/pnpm"
+fi
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# fnm: keep the existing manager and final activation options; initialize once.
+FNM_PATH="$HOME/Library/Application Support/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+fi
+(( $+commands[fnm] )) && eval "$(fnm env --use-on-cd --shell zsh)"
+
+# opencode
+export PATH="$HOME/.opencode/bin:$PATH"
+
+#source "$HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh"
+#source "$HOMEBREW_PREFIX/opt/chruby/share/chruby/auto.sh"
+#chruby ruby-4.0.5

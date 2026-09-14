@@ -1,0 +1,9 @@
+{{- $name := promptStringOnce . "name" "Git full name" "Mikkel O. Laursen" -}}
+{{- $email := promptStringOnce . "email" "Personal Git email" "m@ikkel.dk" -}}
+{{- $defaultEmail := promptStringOnce . "defaultEmail" "Default Git email (outside personal checkouts)" $email -}}
+sourceDir = {{ .chezmoi.workingTree | quote }}
+
+[data]
+name = {{ $name | quote }}
+email = {{ $email | quote }}
+defaultEmail = {{ $defaultEmail | quote }}

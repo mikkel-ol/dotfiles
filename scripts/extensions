@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+if ! command -v code >/dev/null; then
+  echo 'VS Code CLI missing. Install desktop profile or enable the code command in VS Code.' >&2
+  exit 1
+fi
+check=false
+case "${1:-}" in '') ;; --check) check=true ;; *)
+  echo 'Usage: scripts/extensions [--check]' >&2
+  exit 2
+  ;;
+esac
+installed=$(code --list-extensions)
+missing=0
+while IFS= read -r extension; do
+  [[ -n $extension && $extension != \#* ]] || continue
+  if ! printf '%s\n' "$installed" | grep -Fxiq -- "$extension"; then
+    if [[ $check == true ]]; then
+      printf 'Missing: %s\n' "$extension"
+      missing=1
+    else
+      code --install-extension "$extension"
+    fi
+  fi
+done <"$ROOT/packages/vscode-extensions.txt"
+exit "$missing"
